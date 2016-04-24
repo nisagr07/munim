@@ -6,6 +6,7 @@
 package main;
 
 import bean.PrimaryStockBean;
+import expense.AddExpense;
 import fos.AddFos;
 import fos.RemoveFos;
 import java.awt.Dimension;
@@ -80,6 +81,8 @@ public class Home extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -100,7 +103,6 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Cooper Black", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel2.setText("jLabel2");
 
         jMenu1.setText("Voucher");
 
@@ -167,6 +169,18 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu7.setText("Expenses");
+
+        jMenuItem14.setText("Add Expense");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem14);
+
+        jMenuBar1.add(jMenu7);
+
         jMenu4.setText("Stock Assignment");
 
         jMenuItem8.setText("Assign Stock");
@@ -195,7 +209,7 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Daily Hisab");
+        jMenu5.setText("Daily Calculation");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
@@ -249,7 +263,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(107, 107, 107)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(213, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -258,10 +272,10 @@ public class Home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(36, 36, 36)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
@@ -276,8 +290,6 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"There are no FOS","FOS Remove",JOptionPane.PLAIN_MESSAGE);
         }
         else {
-           // DOMConfigurator.configure("log4j.xml");
-            logger.error("Remove FOS");
             RemoveFos rf=new RemoveFos(fosList);
             rf.pack();
             rf.setSize(600, 400);  
@@ -462,6 +474,22 @@ public class Home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        
+        Dao dao=new Dao();
+        ArrayList<String> fosList=dao.fosList();
+        if(fosList.isEmpty() || (fosList.size()==1 && fosList.get(0).equalsIgnoreCase("-1"))) {
+
+            JOptionPane.showMessageDialog(null,"There are no FOS","FOS Remove",JOptionPane.PLAIN_MESSAGE);
+        }
+        else {
+            AddExpense ae = new AddExpense();
+            ae.setVisible(true);
+            ae.expenseTable(fosList);
+        }
+        
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
 
 
     /**
@@ -506,12 +534,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

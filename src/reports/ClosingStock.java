@@ -129,20 +129,20 @@ public class ClosingStock extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                .addGap(104, 104, 104)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                .addGap(400, 400, 400))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(336, 336, 336))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,10 +270,10 @@ public class ClosingStock extends javax.swing.JFrame {
         }
         ArrayList<String> rowList = null;
         if(comboValue.equalsIgnoreCase("Date")){
-            rowList = d.reportOnlyDate(fromDate, toDate,"Total_Sold");
+            rowList = d.reportOnlyDateClosing(fromDate, toDate,"Closing_Stock");
         }
         else if(comboValue.equalsIgnoreCase("FOS")){
-            rowList = d.reportDateFos(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"Total_Sold");
+            rowList = d.reportDateFosClosing(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"Closing_Stock");
         }
             
         if(rowList == null){
@@ -300,7 +300,7 @@ public class ClosingStock extends javax.swing.JFrame {
         }
         if(rowList.size()>2){
             String parts1[] = new String[totalVouchers.length];
-            parts1[0] = "Total Vouchers";
+            parts1[0] = "Total";
             for(int j=1;j<=totalVouchers.length-1;j++){
                 parts1[j] = String.valueOf(totalVouchers[j]);
             }
@@ -314,6 +314,11 @@ public class ClosingStock extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(0).setMinWidth(150);
         jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-1).setMinWidth(100);
         jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-2).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-3).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-4).setMinWidth(100);
+        if(jTable1.getColumnCount()>4){
+            jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-5).setMinWidth(100);
+        }
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);

@@ -819,7 +819,7 @@ public class Dao {
                                 stmt2.execute("update stock_assignment set "+voucherList.get(j-1)+"="+updatedAmount+" where AssignedDate="+assignment_date+" AND FOS='"+parts[0]+"'");
                                 
                             }
-                    }
+                        }
                 }
                 else {
                     StringBuilder data=new StringBuilder();
@@ -1533,5 +1533,170 @@ public class Dao {
         }
         return rowList;
     }
+    public ArrayList<String> reportOnlyDateClosing(long fromDate, long toDate, String tableName){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, tableName, null); 
+            if(!res.next()){
+                return null; 
+            }
+            ArrayList<String> vouchers = new ArrayList<>();
+            ResultSet columns = meta.getColumns(null, null, tableName, null);
+            if(fromDate == toDate){
+                while(columns!=null && columns.next()){
+                    String col = columns.getString("COLUMN_NAME");
+                    if(!(col.equalsIgnoreCase("Virtual_Topup")|| col.equalsIgnoreCase("AssignedDate") || col.equalsIgnoreCase("FOS") || col.equalsIgnoreCase("Total_Amount")||col.equalsIgnoreCase("Cash")||col.equalsIgnoreCase("Total_Sold")||col.equalsIgnoreCase("Difference"))){
+                        vouchers.add(col.trim());
+                    }        
+                }
+                Collections.sort(vouchers);
+                vouchers.add("Virtual_Topup");
+                vouchers.add("Total_Amount");
+            }
+            
+            vouchers.add("Cash");
+            vouchers.add("Total_Sold");
+            vouchers.add("Difference");
+            StringBuilder sb1 = new StringBuilder("FOS,");
+            StringBuilder query = new StringBuilder();
+            for(String v:vouchers){
+                sb1.append(v).append(",");
+                query.append("SUM(`"+v+"`) AS v"+v+",");
+            }
+            sb1.deleteCharAt(sb1.length()-1);
+            rowList.add(sb1.toString());
+            stmt.execute("select "+query.toString()+" FOS from "+tableName+" where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" group by FOS");
+            ResultSet rs = stmt.getResultSet();
+            while((rs!=null) && (rs.next()))
+            {
+            
+                StringBuilder sb = new StringBuilder("");
+                sb.append(rs.getString("FOS").trim()).append(",");
+                for(String s:vouchers){
+                    String v = rs.getString("v"+s);
+                    int amount = 0;
+                    if(v!=null){
+                        amount = ((Double)Double.parseDouble(v)).intValue();
+                    }
+                    sb.append(amount).append(",");
+                }
+                sb.deleteCharAt(sb.length()-1);
+                rowList.add(sb.toString());
+            }
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
+    public ArrayList<String> reportDateFosClosing(long fromDate, long toDate, String fos, String tableName){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, tableName, null); 
+            if(!res.next()){ 
+                return null; 
+            }
+            ArrayList<String> vouchers = new ArrayList<>();
+            ResultSet columns = meta.getColumns(null, null, tableName, null);
+            while(columns!=null && columns.next()){
+                String col = columns.getString("COLUMN_NAME");
+                if(!(col.equalsIgnoreCase("Virtual_Topup")|| col.equalsIgnoreCase("AssignedDate") || col.equalsIgnoreCase("FOS") || col.equalsIgnoreCase("Total_Amount")||col.equalsIgnoreCase("Cash")||col.equalsIgnoreCase("Total_Sold")||col.equalsIgnoreCase("Difference"))){
+                    vouchers.add(col.trim());
+                }        
+            }
+            Collections.sort(vouchers);
+            vouchers.add("Virtual_Topup");
+            vouchers.add("Total_Amount");
+            vouchers.add("Cash");
+            vouchers.add("Total_Sold");
+            vouchers.add("Difference");
+            StringBuilder sb1 = new StringBuilder("Date,");
+            for(String v:vouchers){
+                sb1.append(v).append(",");
+            }
+            sb1.deleteCharAt(sb1.length()-1);
+            rowList.add(sb1.toString());
+            stmt.execute("select * from "+tableName+" where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" AND FOS LIKE '%"+fos+"%'");
+            ResultSet rs = stmt.getResultSet();
+            while((rs!=null) && (rs.next()))
+            {
+                StringBuilder sb = new StringBuilder("");
+                sb.append(rs.getString("AssignedDate").trim()).append(",");
+                for(String s:vouchers){
+                    String v = rs.getString(s);
+                    int amount = 0;
+                    if(v!=null){
+                        amount = Integer.parseInt(v);
+                    }
+                    sb.append(amount).append(",");
+                }
+                sb.deleteCharAt(sb.length()-1);
+                rowList.add(sb.toString());
+            }
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
+    public boolean addExpense(ArrayList<String> rowList,String date){
+        Connection con=getConnection();
+        boolean rv = false;
+        try {        
+            Statement stmt = con.createStatement();
+            Statement stmt1 = con.createStatement();
+            Statement stmt2 = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, "expense", null); 
+            if(!res.next()){ 
+                stmt.execute("create table expense( AssignedDate Integer,FOS char,Salary Integer,Petrol Integer,Other Integer)");
+            } 
+            String[] columns={"Salary","Petrol","Other"};
+            for(String row:rowList){
+                String[] parts = row.split(",");
+                stmt.execute("select * from expense where FOS='"+parts[0]+"' AND AssignedDate="+date+"");
+                ResultSet rs = stmt.getResultSet();
+                if((rs!=null) && (rs.next())) {
+                    for(int j=1;j<parts.length;j++){
+                            if(!parts[j].equals("0")){
+                                int updatedAmount=Integer.parseInt(parts[j]) + rs.getInt(columns[j-1]);
+                                stmt2.execute("update expense set "+columns[j-1]+"="+updatedAmount+" where AssignedDate="+date+" AND FOS='"+parts[0]+"'");                                
+                            }
+                    }
+                }
+                else {
+                    stmt1.execute("insert into expense(AssignedDate,FOS,Salary,Petrol,Other) values ("+date+",'"+parts[0]+"',"+parts[1]+","+parts[2]+","+parts[3]+")");
+                }
+            }
+            rv = true;
+        }
+        catch(Exception e){
+        }
+        return rv;
     
+    }
 }
