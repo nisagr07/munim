@@ -1699,4 +1699,119 @@ public class Dao {
         return rv;
     
     }
+    public ArrayList<String> reportDateFosExpense(long fromDate, long toDate, String fos, String tableName){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, tableName, null); 
+            if(!res.next()){ 
+                return null; 
+            }
+            ArrayList<String> c = new ArrayList<>();
+            ResultSet columns = meta.getColumns(null, null, tableName, null);
+            while(columns!=null && columns.next()){
+                String col = columns.getString("COLUMN_NAME");
+                if(!(col.equalsIgnoreCase("AssignedDate") || col.equalsIgnoreCase("FOS"))){
+                    c.add(col.trim());
+                }        
+            }
+            StringBuilder sb1 = new StringBuilder("Date,");
+            for(String v:c){
+                sb1.append(v).append(",");
+            }
+            sb1.deleteCharAt(sb1.length()-1);
+            rowList.add(sb1.toString());
+            stmt.execute("select * from "+tableName+" where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" AND FOS LIKE '%"+fos+"%'");
+            ResultSet rs = stmt.getResultSet();
+            while((rs!=null) && (rs.next()))
+            {
+                StringBuilder sb = new StringBuilder("");
+                sb.append(rs.getString("AssignedDate").trim()).append(",");
+                for(String s:c){
+                    String v = rs.getString(s);
+                    int amount = 0;
+                    if(v!=null){
+                        amount = Integer.parseInt(v);
+                    }
+                    sb.append(amount).append(",");
+                }
+                sb.deleteCharAt(sb.length()-1);
+                rowList.add(sb.toString());
+            }
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
+    public ArrayList<String> reportOnlyDateExpense(long fromDate, long toDate, String tableName){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, tableName, null); 
+            if(!res.next()){
+                return null; 
+            }
+            ArrayList<String> c = new ArrayList<>();
+            ResultSet columns = meta.getColumns(null, null, tableName, null);
+            while(columns!=null && columns.next()){
+                String col = columns.getString("COLUMN_NAME");
+                if(!(col.equalsIgnoreCase("AssignedDate") || col.equalsIgnoreCase("FOS"))){
+                    c.add(col.trim());
+                }        
+            }
+            StringBuilder sb1 = new StringBuilder("FOS,");
+            StringBuilder query = new StringBuilder();
+            for(String v:c){
+                sb1.append(v).append(",");
+                query.append("SUM(`"+v+"`) AS v"+v+",");
+            }
+            sb1.deleteCharAt(sb1.length()-1);
+            rowList.add(sb1.toString());
+            stmt.execute("select "+query.toString()+" FOS from "+tableName+" where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" group by FOS");
+            ResultSet rs = stmt.getResultSet();
+            while((rs!=null) && (rs.next()))
+            {
+            
+                StringBuilder sb = new StringBuilder("");
+                sb.append(rs.getString("FOS").trim()).append(",");
+                for(String s:c){
+                    String v = rs.getString("v"+s);
+                    int amount = 0;
+                    if(v!=null){
+                        amount = ((Double)Double.parseDouble(v)).intValue();
+                    }
+                    sb.append(amount).append(",");
+                }
+                sb.deleteCharAt(sb.length()-1);
+                rowList.add(sb.toString());
+            }
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
 }

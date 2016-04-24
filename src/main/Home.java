@@ -22,6 +22,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import reports.ClosingStock;
 import reports.PrimaryStockReceived;
 import reports.StockAssigned;
+import reports.TotalExpense;
 import reports.TotalSold;
 import stock.AddPrimaryStock;
 import stock.AssignStock;
@@ -93,6 +94,7 @@ public class Home extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Munim");
@@ -250,6 +252,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem13);
+
+        jMenuItem15.setText("Total Expense");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem15);
 
         jMenuBar1.add(jMenu6);
 
@@ -490,6 +500,13 @@ public class Home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        Dao dao=new Dao();
+        ArrayList<String> fosList=dao.fosList();
+        TotalExpense te = new TotalExpense(fosList);
+        te.setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
 
 
     /**
@@ -542,6 +559,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

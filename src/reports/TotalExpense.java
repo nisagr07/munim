@@ -24,12 +24,12 @@ import org.apache.log4j.Logger;
  *
  * @author nishant
  */
-public class TotalSold extends javax.swing.JFrame {
-    private static final Logger logger=Logger.getLogger(TotalSold.class);
+public class TotalExpense extends javax.swing.JFrame {
+    private static final Logger logger=Logger.getLogger(TotalExpense.class);
     /**
-     * Creates new form TotalSold
+     * Creates new form TotalExpense
      */
-    public TotalSold() {
+    public TotalExpense() {
         initComponents();
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -42,7 +42,7 @@ public class TotalSold extends javax.swing.JFrame {
             logger.error("ERROR in setting icon",exc);
         }
     }
-    public TotalSold(ArrayList<String> fosList){
+    public TotalExpense(ArrayList<String> fosList){
         this();
         if(String.valueOf(jComboBox2.getSelectedItem()).equalsIgnoreCase("FOS")){
             if(fosList.isEmpty() || (fosList.size()==1 && fosList.get(0).equalsIgnoreCase("-1"))) {
@@ -89,15 +89,16 @@ public class TotalSold extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Total Sold");
+        setTitle("Total Expense");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Total Sold");
+        jLabel2.setText("Total Expense");
 
-        jLabel3.setText("From:");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel3.setText("From");
 
         jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +106,8 @@ public class TotalSold extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("To:");
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("To");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FOS", "Date" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -126,37 +128,35 @@ public class TotalSold extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(362, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(312, 312, 312))
+                .addGap(384, 384, 384))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(37, 37, 37))
         );
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -176,7 +176,7 @@ public class TotalSold extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 1303;
-        gridBagConstraints.ipady = 479;
+        gridBagConstraints.ipady = 481;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -203,23 +203,51 @@ public class TotalSold extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2)))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
+        Date d1 = jXDatePicker1.getDate();
+        Date d2 = new Date();
+        long diff = (d2.getTime() - d1.getTime())/1000/60/60/24;
+        if(diff > 60){
+            JOptionPane.showMessageDialog(null,"You can't select date older than 60 days",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            jXDatePicker1.setDate(new Date());
+            jXDatePicker1.setFormats(format);
+            return;
+        }
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
+        if(comboValue.equalsIgnoreCase("Date")){
+            jComboBox1.setVisible(false);    
+        }
+        else if(comboValue.equalsIgnoreCase("FOS")){
+            if(jComboBox1.getItemCount()==0){
+                JOptionPane.showMessageDialog(null,"There are no FOS",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+                jComboBox2.setSelectedItem("Date");
+            }
+            else {
+                jComboBox1.setVisible(true);
+            }
+            
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
         Dao d = new Dao();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         DefaultTableModel model = new DefaultTableModel(){
@@ -240,18 +268,18 @@ public class TotalSold extends javax.swing.JFrame {
         }
         ArrayList<String> rowList = null;
         if(comboValue.equalsIgnoreCase("Date")){
-            rowList = d.reportOnlyDate(fromDate, toDate,"Total_Sold");
+            rowList = d.reportOnlyDateExpense(fromDate, toDate,"expense");
         }
         else if(comboValue.equalsIgnoreCase("FOS")){
-            rowList = d.reportDateFos(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"Total_Sold");
+            rowList = d.reportDateFosExpense(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"expense");
         }
             
         if(rowList == null){
-            JOptionPane.showMessageDialog(null,"No Stock Sold",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"No Expense",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
             return;
         }
         if(rowList!=null && rowList.size()==1){
-            JOptionPane.showMessageDialog(null,"No Stock sold between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"No Expense between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
             return;
         }
         String columns[]=rowList.get(0).split(",");
@@ -281,9 +309,10 @@ public class TotalSold extends javax.swing.JFrame {
         jTable1.setFillsViewportHeight(true);
         jTable1.setRowHeight(25);
         jTable1.setShowGrid(true);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(150);
-        jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-1).setMinWidth(100);
-        jTable1.getColumnModel().getColumn(jTable1.getColumnCount()-2).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(100);
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
@@ -324,36 +353,6 @@ public class TotalSold extends javax.swing.JFrame {
         this.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
-        if(comboValue.equalsIgnoreCase("Date")){
-            jComboBox1.setVisible(false);    
-        }
-        else if(comboValue.equalsIgnoreCase("FOS")){
-            if(jComboBox1.getItemCount()==0){
-                JOptionPane.showMessageDialog(null,"There are no FOS",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
-                jComboBox2.setSelectedItem("Date");
-            }
-            else {
-                jComboBox1.setVisible(true);
-            }
-            
-        }
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
-        Date d1 = jXDatePicker1.getDate();
-        Date d2 = new Date();
-        long diff = (d2.getTime() - d1.getTime())/1000/60/60/24;
-        if(diff > 60){
-            JOptionPane.showMessageDialog(null,"You can't select date older than 60 days",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            jXDatePicker1.setDate(new Date());
-            jXDatePicker1.setFormats(format);
-            return;
-        }
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -371,20 +370,20 @@ public class TotalSold extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TotalSold.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TotalExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TotalSold.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TotalExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TotalSold.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TotalExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TotalSold.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TotalExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TotalSold().setVisible(true);
+                new TotalExpense().setVisible(true);
             }
         });
     }
