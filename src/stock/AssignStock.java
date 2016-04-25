@@ -164,7 +164,6 @@ public class AssignStock extends javax.swing.JFrame {
           primaryRow[column.size()-1]=totalPrimaryValue;
          model.addRow(primaryRow);
          
-            logger.error("Assign Stock");
           
             jTable1.setModel(model);
             jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

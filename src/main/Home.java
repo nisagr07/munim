@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import reports.ClosingStock;
+import reports.NetProfit;
 import reports.PrimaryStockReceived;
 import reports.StockAssigned;
 import reports.TotalExpense;
@@ -519,8 +520,8 @@ public class Home extends javax.swing.JFrame {
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
        Dao dao=new Dao();
         ArrayList<String> fosList=dao.fosList();
-        TotalExpense te = new TotalExpense(fosList);
-        te.setVisible(true);
+        NetProfit np = new NetProfit(fosList);
+        np.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
 

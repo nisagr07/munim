@@ -5,12 +5,19 @@
  */
 package reports;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import main.Dao;
 import org.apache.log4j.Logger;
 
 /**
@@ -121,20 +128,20 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(200, 200, 200)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addGap(366, 366, 366))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +250,110 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
+        Dao d = new Dao();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+        if(jXDatePicker1.getDate()==null || jXDatePicker2.getDate() == null){
+            JOptionPane.showMessageDialog(null,"Please enter valid date ",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        long fromDate = Long.parseLong(dateFormat.format(jXDatePicker1.getDate()));
+        long toDate = Long.parseLong(dateFormat.format(jXDatePicker2.getDate()));
+        if(fromDate>toDate){
+            JOptionPane.showMessageDialog(null,"From-Date cannot be greater than To-Date ",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        ArrayList<String> rowList = null;
+        if(comboValue.equalsIgnoreCase("Date")){
+            rowList = d.reportOnlyDateProfit(fromDate, toDate);
+        }
+        else if(comboValue.equalsIgnoreCase("FOS")){
+            rowList = d.reportDateFosExpense(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"expense");
+        }
+            
+        if(rowList == null){
+            JOptionPane.showMessageDialog(null,"No Expense",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        if(rowList!=null && rowList.size()==1){
+            JOptionPane.showMessageDialog(null,"No Expense between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        String columns[]=rowList.get(0).split(",");
+        model.setColumnIdentifiers(columns);
+        String parts[]=null;
+        int totalVouchers [] = new int[columns.length];
+        for(int i=1;i<rowList.size();i++){
+            parts=rowList.get(i).split(",");
+            if(comboValue.equalsIgnoreCase("FOS")){
+                parts[0]=parts[0].substring(6, 8)+"-"+parts[0].substring(4,6)+"-"+parts[0].substring(0, 4);
+            }
+            for(int p=1;p<parts.length;p++){
+                totalVouchers[p] = totalVouchers[p]+Integer.parseInt(parts[p]);
+            }
+            model.addRow(parts);
+        }
+        if(rowList.size()>2){
+            String parts1[] = new String[totalVouchers.length];
+            parts1[0] = "Total";
+            for(int j=1;j<=totalVouchers.length-1;j++){
+                parts1[j] = String.valueOf(totalVouchers[j]);
+            }
+        model.addRow(parts1);
+        }
+        jTable1.setModel(model);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jTable1.setFillsViewportHeight(true);
+        jTable1.setRowHeight(25);
+        jTable1.setShowGrid(true);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(100);
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+        dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+        ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        int width=0;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int maxWidth=screenSize.width-150;
+        for(int i=0;i<jTable1.getColumnCount();i++){
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+            width = width + jTable1.getColumnModel().getColumn(i).getWidth();
+        }
+        int height = jTable1.getRowHeight()*(jTable1.getRowCount()+1);
+        if( width > maxWidth && height > 250){
+            jScrollPane1.setPreferredSize(new Dimension(maxWidth,250));
+        }
+        else if(width > maxWidth){
+            jScrollPane1.setPreferredSize(new Dimension(maxWidth,height+18));
+        }
+        else if(height > 250){
+            jScrollPane1.setPreferredSize(new Dimension(width+21,250));
+        }
+        else{
+            jScrollPane1.setPreferredSize(new Dimension(width+6, height+3));
+        }
+        int maxHeight = screenSize.height - 100;
+        if(jPanel2.getWidth()>= maxWidth && jPanel2.getHeight()>=maxHeight){
+            jPanel2.setSize(maxWidth, maxHeight);
+        }
+        else if(jPanel2.getWidth()>= maxWidth){
+            jPanel2.setSize(maxWidth, jPanel2.getHeight());
+        }
+        else if(jPanel2.getHeight()>= maxHeight){
+            jPanel2.setSize(jPanel2.getWidth(), maxHeight);
+        }
+        jScrollPane1.setMinimumSize(new Dimension(maxWidth-500, maxHeight-500));
+        jPanel2.add(jScrollPane1);
+        jTable1.setVisible(true);
+        jScrollPane1.setVisible(true);
+        this.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

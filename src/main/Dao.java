@@ -1673,9 +1673,9 @@ public class Dao {
             DatabaseMetaData meta = con.getMetaData(); 
             ResultSet res = meta.getTables(null, null, "expense", null); 
             if(!res.next()){ 
-                stmt.execute("create table expense( AssignedDate Integer,FOS char,Salary Integer,Petrol Integer,Other Integer)");
+                stmt.execute("create table expense( AssignedDate Integer,FOS char,Salary Integer,Petrol Integer,Other Integer,Total_Expense Integer)");
             } 
-            String[] columns={"Salary","Petrol","Other"};
+            String[] columns={"Salary","Petrol","Other","Total_Expense"};
             for(String row:rowList){
                 String[] parts = row.split(",");
                 stmt.execute("select * from expense where FOS='"+parts[0]+"' AND AssignedDate="+date+"");
@@ -1689,12 +1689,13 @@ public class Dao {
                     }
                 }
                 else {
-                    stmt1.execute("insert into expense(AssignedDate,FOS,Salary,Petrol,Other) values ("+date+",'"+parts[0]+"',"+parts[1]+","+parts[2]+","+parts[3]+")");
+                    stmt1.execute("insert into expense(AssignedDate,FOS,Salary,Petrol,Other,Total_Expense) values ("+date+",'"+parts[0]+"',"+parts[1]+","+parts[2]+","+parts[3]+","+parts[4]+")");
                 }
             }
             rv = true;
         }
         catch(Exception e){
+            e.printStackTrace();
         }
         return rv;
     
@@ -1799,6 +1800,74 @@ public class Dao {
                 sb.deleteCharAt(sb.length()-1);
                 rowList.add(sb.toString());
             }
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
+    public ArrayList<String> reportOnlyDateProfit(long fromDate, long toDate){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, "Closing_Stock", null); 
+            if(!res.next()){
+                return null; 
+            }
+            rowList.add("FOS,Total Sold,Total Expenses,Net Profit");
+            stmt.execute("select SUM(Total_Sold) AS TS,FOS from Closing_Stock where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" group by FOS");
+            ResultSet rs = stmt.getResultSet();
+            HashMap totalSold = new HashMap();
+            while((rs!=null) && (rs.next()))
+            {
+                String fos = rs.getString("FOS").trim();
+                String ts = rs.getString("TS");
+                int amount = 0;
+                if(ts!=null){
+                    amount = ((Double)Double.parseDouble(ts)).intValue();
+                }
+                totalSold.put(fos, amount);
+            }
+            ResultSet res1 = meta.getTables(null, null, "expense", null);
+            HashMap totalExpense = new HashMap();
+            if(res1.next()){
+                stmt.execute("select SUM(Total_Expense) AS TE,FOS from expense where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" group by FOS");
+                ResultSet rs1 = stmt.getResultSet();
+                while((rs1!=null) && (rs1.next()))
+                {
+                    String fos = rs.getString("FOS").trim();
+                    String te = rs.getString("TE");
+                    int expense = 0;
+                    if(te!=null){
+                        expense = ((Double)Double.parseDouble(te)).intValue();
+                    }
+                    totalExpense.put(fos, expense);
+                }
+            }
+            
+            for(Object fos: totalSold.keySet()){
+                StringBuilder sb = new StringBuilder();
+                int ts = (int)totalSold.get(fos);
+                int te = 0;
+                if(totalExpense.size()>0 && totalExpense.get(fos)!=null){
+                    te = (int) totalExpense.get(fos);
+                }
+                sb.append(fos).append(",").append(ts).append(",").append(te).append(",").append(ts-te);
+                
+                rowList.add(sb.toString());
+            }
+            
         
         } catch(Exception e) {
             e.printStackTrace();

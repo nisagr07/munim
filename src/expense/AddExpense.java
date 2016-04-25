@@ -44,15 +44,39 @@ public class AddExpense extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                if(column==0){
+                if(column==0 || column==jTable1.getColumn("Total").getModelIndex()){
                     return false;
                 }
                 else {
                     return true;
                 }
             }
+            @Override
+             public void setValueAt(Object value, int row, int col) {
+                long sumValue=0;   
+                if(value!=null){
+                    sumValue=Long.parseLong(String.valueOf(value));
+                }
+                if(sumValue < 0){
+                    JOptionPane.showMessageDialog(null,"Negative values not allowed","Add Expense",JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+                for(int i=1;i<=getColumnCount()-2;i++){
+                    if(i==col){
+                        continue;
+                    }
+                    if(jTable1.getModel().getValueAt(row, i)!=null){
+                        sumValue = sumValue + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(row, i)));
+                    }
+                    else {
+                        sumValue=sumValue + 0;
+                    }
+                }
+                super.setValueAt(sumValue, row, jTable1.getColumn("Total").getModelIndex());
+                super.setValueAt(value, row, col);
+             }
         };
-        String [] column = {"FOS","Salary","Petrol","Other"};
+        String [] column = {"FOS","Salary","Petrol","Other","Total"};
         model.setColumnIdentifiers(column);
         String rows[]=new String[column.length];
         for(int i=0;i<fosList.size();i++){
