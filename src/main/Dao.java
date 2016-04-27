@@ -1846,8 +1846,8 @@ public class Dao {
                 ResultSet rs1 = stmt.getResultSet();
                 while((rs1!=null) && (rs1.next()))
                 {
-                    String fos = rs.getString("FOS").trim();
-                    String te = rs.getString("TE");
+                    String fos = rs1.getString("FOS").trim();
+                    String te = rs1.getString("TE");
                     int expense = 0;
                     if(te!=null){
                         expense = ((Double)Double.parseDouble(te)).intValue();
@@ -1863,11 +1863,87 @@ public class Dao {
                 if(totalExpense.size()>0 && totalExpense.get(fos)!=null){
                     te = (int) totalExpense.get(fos);
                 }
-                sb.append(fos).append(",").append(ts).append(",").append(te).append(",").append(ts-te);
+                sb.append(fos).append(",").append(ts).append(",").append(te).append(",0");
                 
                 rowList.add(sb.toString());
             }
             
+        
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return rowList;
+    }
+    public ArrayList<String> reportDateFosProfit(long fromDate, long toDate, String fos){
+        Connection con=getConnection();
+        ArrayList<String> rowList=new ArrayList<>();
+        try {        
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, "Closing_Stock", null); 
+            if(!res.next()){
+                return null; 
+            }
+            rowList.add("Date,Total Sold,Total Expenses,Net Profit");
+            stmt.execute("select * from Closing_Stock where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" AND FOS LIKE '%"+fos+"%'");
+            ResultSet rs = stmt.getResultSet();
+            HashMap totalSold = new HashMap();
+            while((rs!=null) && (rs.next()))
+            {
+                String SoldDate = rs.getString("AssignedDate").trim();
+                String ts = rs.getString("Total_Sold");
+                int amount = 0;
+                if(ts!=null){
+                    amount = Integer.parseInt(ts);
+                }
+                totalSold.put(SoldDate, amount);
+            }
+            ResultSet res1 = meta.getTables(null, null, "expense", null);
+            HashMap totalExpense = new HashMap();
+            if(res1.next()){
+                stmt.execute("select * from expense where AssignedDate>="+fromDate+" AND AssignedDate<="+toDate+" AND FOS LIKE '%"+fos+"%'");
+                ResultSet rs1 = stmt.getResultSet();
+                while((rs1!=null) && (rs1.next()))
+                {
+                    String ExpDate = rs1.getString("AssignedDate").trim();
+                    String te = rs1.getString("Total_Expense");
+                    int expense = 0;
+                    if(te!=null){
+                        expense = Integer.parseInt(te);
+                    }
+                    totalExpense.put(ExpDate, expense);
+                }
+            }
+            for(Object date: totalSold.keySet()){
+                StringBuilder sb = new StringBuilder();
+                int ts = (int)totalSold.get(date);
+                int te = 0;
+                if(totalExpense.size()>0 && totalExpense.get(date)!=null){
+                    te = (int) totalExpense.get(date);
+                }
+                sb.append(date).append(",").append(ts).append(",").append(te).append(",0");
+                
+                rowList.add(sb.toString());
+            }
+            for(Object date: totalExpense.keySet()){
+                StringBuilder sb = new StringBuilder();
+                
+                if(!totalSold.containsKey(date)){
+                    int te = (int)totalExpense.get(date);
+                    int ts = 0;
+                    sb.append(date).append(",").append(ts).append(",").append(te).append(",0");
+                }
+                rowList.add(sb.toString());
+            }
         
         } catch(Exception e) {
             e.printStackTrace();

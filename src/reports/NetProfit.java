@@ -8,6 +8,8 @@ package reports;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +75,7 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,11 +87,15 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Net Profit");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
 
@@ -122,26 +129,49 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
             }
         });
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel5.setText("Margin");
+
+        jTextField1.setText("1.5");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+
+        jLabel6.setText("%");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(200, 200, 200)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(366, 366, 366))
+                .addGap(214, 214, 214))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,10 +183,15 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
                     .addComponent(jLabel4)
                     .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,22 +203,17 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 1303;
+        gridBagConstraints.ipady = 480;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 11, 10);
+        jPanel2.add(jScrollPane1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,7 +228,7 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,7 +242,7 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -274,38 +304,57 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
             rowList = d.reportOnlyDateProfit(fromDate, toDate);
         }
         else if(comboValue.equalsIgnoreCase("FOS")){
-            rowList = d.reportDateFosExpense(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()),"expense");
+            rowList = d.reportDateFosProfit(fromDate,toDate,String.valueOf(jComboBox1.getSelectedItem()));
         }
             
         if(rowList == null){
-            JOptionPane.showMessageDialog(null,"No Expense",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"No stock sold between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
             return;
         }
         if(rowList!=null && rowList.size()==1){
-            JOptionPane.showMessageDialog(null,"No Expense between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null,"No stock sold between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
             return;
         }
         String columns[]=rowList.get(0).split(",");
         model.setColumnIdentifiers(columns);
-        String parts[]=null;
-        int totalVouchers [] = new int[columns.length];
+        String parts[]=new String[columns.length];
+        double totalVouchers [] = new double[columns.length];
+        double margin = Double.parseDouble(jTextField1.getText());
+        double netProfit = 0.0;
+        double total = 0.0;
         for(int i=1;i<rowList.size();i++){
             parts=rowList.get(i).split(",");
             if(comboValue.equalsIgnoreCase("FOS")){
                 parts[0]=parts[0].substring(6, 8)+"-"+parts[0].substring(4,6)+"-"+parts[0].substring(0, 4);
             }
+            if(Integer.parseInt(parts[1])==0 && Integer.parseInt(parts[2])==0){
+                continue;
+            }
+            netProfit = (Double.parseDouble(parts[1]) * margin * 0.01) - Double.parseDouble(parts[2]);
+            parts[3] = String.valueOf(formatProfit(netProfit));
             for(int p=1;p<parts.length;p++){
-                totalVouchers[p] = totalVouchers[p]+Integer.parseInt(parts[p]);
+                total = totalVouchers[p]+Double.parseDouble(parts[p]);
+                totalVouchers[p] = formatProfit(total);
             }
             model.addRow(parts);
         }
-        if(rowList.size()>2){
+        if(model.getRowCount() > 1){
             String parts1[] = new String[totalVouchers.length];
             parts1[0] = "Total";
             for(int j=1;j<=totalVouchers.length-1;j++){
                 parts1[j] = String.valueOf(totalVouchers[j]);
             }
         model.addRow(parts1);
+        }
+        if(model.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"No stock sold between this period",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            jPanel2.setVisible(false);
+            this.revalidate();
+            return;
+        }
+        else{
+            jPanel2.setVisible(true);
+            this.revalidate();
         }
         jTable1.setModel(model);
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -356,6 +405,29 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
         this.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private double formatProfit(double number){
+        int integerPart = (int) number;
+        double fractionalPart = number - integerPart;
+        fractionalPart *= 100;  //It is for upto two decimal values after point.
+                                //You can increase the zeros to fulfill your needs.
+        int fractPart = (int) fractionalPart;
+        fractionalPart = (double) (integerPart) + (double) (fractPart)/100;
+        return fractionalPart;
+    }
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        try{
+            Double.parseDouble(jTextField1.getText());
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Please enter proper margin",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            jTextField1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_jTextField1FocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -399,10 +471,13 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     // End of variables declaration//GEN-END:variables
