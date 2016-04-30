@@ -15,8 +15,11 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1958,5 +1961,29 @@ public class Dao {
             }
         }
         return rowList;
+    }
+    public static void cleanup(String tableName,long thresholdDate){
+        Connection con=getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            DatabaseMetaData meta = con.getMetaData(); 
+            ResultSet res = meta.getTables(null, null, tableName, null); 
+            if(res.next()){
+                stmt.execute("delete from "+tableName+" where AssignedDate<"+thresholdDate+"");
+            }
+        }
+        catch(Exception e){
+            logger.error("Error Code[DAO-CLEAN]",e);       
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 }

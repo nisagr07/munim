@@ -101,9 +101,9 @@ public class AddExpense extends javax.swing.JFrame {
         }
         int height = jTable1.getRowHeight()*(jTable1.getRowCount()+1);
         if(height>180){
-            jScrollPane1.setPreferredSize(new Dimension(360+21, 168));
+            jScrollPane1.setPreferredSize(new Dimension(435+21, 168));
         } else{
-            jScrollPane1.setPreferredSize(new Dimension(360+6, height+3));
+            jScrollPane1.setPreferredSize(new Dimension(435+6, height+3));
         }
            
         jPanel1.add(jScrollPane1);

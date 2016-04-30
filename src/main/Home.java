@@ -11,9 +11,12 @@ import fos.AddFos;
 import fos.RemoveFos;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import voucher.RemoveVoucher;
 import voucher.AddVoucher;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -56,6 +59,18 @@ public class Home extends javax.swing.JFrame {
         catch (Exception exc) {
             logger.error("ERROR in setting icon",exc);
         }
+        Date d = new Date();
+        long currentDay = (d.getTime())/1000/60/60/24;
+        long thresholdDay = (currentDay - 60);
+        long thresholdTime = thresholdDay *24*60*60*1000;
+        d.setTime(thresholdTime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        long thresholdDate = Long.parseLong(dateFormat.format(d));
+        Dao.cleanup("Closing_Stock",thresholdDate);
+        Dao.cleanup("expense",thresholdDate);
+        Dao.cleanup("primary_stock_assignment",thresholdDate);
+        Dao.cleanup("stock_assignment",thresholdDate);
+        Dao.cleanup("Total_Sold",thresholdDate);
        
     }
     public Home(String username){
