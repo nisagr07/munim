@@ -5,12 +5,10 @@
  */
 package voucher;
 
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -35,7 +33,7 @@ public class RemoveVoucher extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[RV-ICON]",exc);
         }
     }
     public RemoveVoucher(ArrayList<String> voucherList){

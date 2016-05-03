@@ -9,8 +9,6 @@ import bean.PrimaryStockBean;
 import expense.AddExpense;
 import fos.AddFos;
 import fos.RemoveFos;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import voucher.RemoveVoucher;
@@ -18,10 +16,8 @@ import voucher.AddVoucher;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 import reports.ClosingStock;
 import reports.NetProfit;
 import reports.PrimaryStockReceived;
@@ -57,7 +53,7 @@ public class Home extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR [HO-ICON]",exc);
         }
         Date d = new Date();
         long currentDay = (d.getTime())/1000/60/60/24;

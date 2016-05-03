@@ -5,12 +5,9 @@
  */
 package stock;
 
-
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,7 +31,7 @@ public class StockInhand extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[SI-ICON]",exc);
         }
     }
     public StockInhand(ArrayList<String> rowList){
@@ -97,7 +94,7 @@ public class StockInhand extends javax.swing.JFrame {
            else if(jPanel1.getHeight()>= maxHeight){
                jPanel1.setSize(jPanel1.getWidth(), maxHeight);
            }
-           jScrollPane1.setMinimumSize(new Dimension(maxWidth-500, maxHeight-500));
+           jScrollPane1.setMinimumSize(new Dimension(maxWidth-600, maxHeight-300));
            jPanel1.add(jScrollPane1);
             
     }
@@ -164,7 +161,8 @@ public class StockInhand extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(139, 139, 139))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1342, Short.MAX_VALUE)))

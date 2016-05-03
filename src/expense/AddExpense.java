@@ -16,13 +16,14 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author nishant
  */
 public class AddExpense extends javax.swing.JFrame {
-
+    private static final Logger logger=Logger.getLogger(AddExpense.class);
     /**
      * Creates new form AddExpense
      */
@@ -35,6 +36,7 @@ public class AddExpense extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
+            logger.error("Error Code[AE-ICON]",exc);
         }
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         jXDatePicker1.setDate(new Date());
@@ -133,7 +135,7 @@ public class AddExpense extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Add Expense");
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -202,10 +204,10 @@ public class AddExpense extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel2)
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)

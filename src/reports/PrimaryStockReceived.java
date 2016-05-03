@@ -10,7 +10,6 @@ import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,7 +39,7 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[REP-PSR-ICON]",exc);
         }
         Date d = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

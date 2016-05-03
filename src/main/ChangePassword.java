@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
@@ -30,7 +29,7 @@ public class ChangePassword extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR [CP-ICON]",exc);
         }
         jButton1.setAction(changePassword);
         jPasswordField1.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "CHANGEPASS");

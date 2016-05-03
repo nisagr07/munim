@@ -5,22 +5,14 @@
  */
 package fos;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingx.table.NumberEditorExt;
 
 /**
  *
@@ -39,7 +31,7 @@ public class AddFos extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR [AF-ICON]",exc);
         }
         model = new DefaultTableModel();
         model.addColumn("FOS Names");

@@ -37,9 +37,8 @@ public class AddVoucher extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[AV-ICON]",exc);
         }
-        logger.info("inside add voucher");
         model = new DefaultTableModel();
         model.addColumn("Vouchers");
         model.addRow(s);

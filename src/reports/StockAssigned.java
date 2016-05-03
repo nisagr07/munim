@@ -39,7 +39,7 @@ private static final Logger logger=Logger.getLogger(StockAssigned.class);
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[REP-SA-ICON]",exc);
         }
       
     }

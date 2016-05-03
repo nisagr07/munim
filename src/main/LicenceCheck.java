@@ -34,7 +34,7 @@ public class LicenceCheck extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR [LC-ICON]",exc);
         }
         this.setSize(600, 400);
         this.setLocationRelativeTo(null);
@@ -77,7 +77,7 @@ public class LicenceCheck extends javax.swing.JFrame {
             }
         }
         catch(Exception e){
-            
+            logger.error("ERROR [LC-01]",e);
         }
     }
     private  Action enterAction = new AbstractAction()
@@ -229,7 +229,7 @@ public class LicenceCheck extends javax.swing.JFrame {
                 h.setVisible(true);
             }
         }catch(Exception e){
-            
+            logger.error("ERROR[LC-02]",e);
         }
         
         
@@ -249,7 +249,7 @@ public class LicenceCheck extends javax.swing.JFrame {
             }
         }
         catch(Exception e){
-            
+            logger.error("ERROR[LC-03]",e);
         }
          
         return hexString.toString();

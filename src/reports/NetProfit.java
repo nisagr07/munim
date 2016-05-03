@@ -8,8 +8,6 @@ package reports;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +39,7 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[REP-NP-ICON]",exc);
         }
     }
     public NetProfit(ArrayList<String> fosList){
@@ -423,6 +421,7 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
             Double.parseDouble(jTextField1.getText());
         }
         catch(Exception e){
+            logger.error("ERROR[REP-NP-Margin]",e);
             JOptionPane.showMessageDialog(null,"Please enter proper margin",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
             jTextField1.requestFocusInWindow();
         }

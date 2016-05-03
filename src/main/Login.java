@@ -6,14 +6,9 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.apache.log4j.Logger;
@@ -38,7 +33,7 @@ public class Login extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[LO-ICON]",exc);
         }
         jButton1.setAction(enterAction);
         jTextField1.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "EnterAction");

@@ -15,14 +15,9 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -73,7 +68,7 @@ public class Dao {
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Some Problem in login","Login Error",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-CU-1]",e);
+            logger.error("ERROR[DAO-CU-01]",e);
             return null;
         } 
         finally {
@@ -82,7 +77,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-CU-02]",ex);
             }
         }
         
@@ -100,7 +95,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"Not Registered","Register Error",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-REG]",e);
+            logger.error("ERROR[DAO-REG-01]",e);
         }
         finally {
             try {
@@ -108,7 +103,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REG-02]",ex);
             }
         }
     }
@@ -145,12 +140,12 @@ public class Dao {
             }
             else {
                 JOptionPane.showMessageDialog(null,"Some Problem in login","Login Error",JOptionPane.PLAIN_MESSAGE);
-                logger.error("ERROR[DAO-LOGIN-1]");
+                logger.error("ERROR[DAO-LO-01]");
             }
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Some Problem in login","Login Error",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-LOGIN-2]",e);
+            logger.error("ERROR[DAO-LO-02]",e);
         } 
         finally {
             try {
@@ -158,7 +153,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-LO-03]",ex);
             }
         }
         
@@ -176,7 +171,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"Password Not changed","Change Password",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-CP]",e);
+            logger.error("ERROR[DAO-CP-01]",e);
         }
         finally {
             try {
@@ -184,7 +179,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+               logger.error("ERROR[DAO-CP-02]",ex);
             }
         }
     }
@@ -202,7 +197,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"There is some problem in activation","Activation",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-ACT]",e);
+            logger.error("ERROR[DAO-ACT-01]",e);
         }
         finally {
             try {
@@ -210,7 +205,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+               logger.error("ERROR[DAO-ACT-02]",ex);
             }
         }
         return b;
@@ -228,7 +223,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"There is some problem in Trial Version","Activation",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-FT]",e);
+            logger.error("ERROR[DAO-FT-01]",e);
         }
         finally {
             try {
@@ -236,7 +231,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-FT-02]",ex);
             }
         }
         return b;
@@ -257,7 +252,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"There is some problem in Trial Version","Activation",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-FT]",e);
+            logger.error("ERROR[DAO-FT-03]",e);
         }
         finally {
             try {
@@ -265,7 +260,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-FT-04]",ex);
             }
         }
         return startDate;
@@ -281,7 +276,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"There is some problem in Trial Version","Activation",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-SE]",e);
+            logger.error("ERROR[DAO-SE-01]",e);
         }
         finally {
             try {
@@ -289,7 +284,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-SE-02]",ex);
             }
         }
     }
@@ -309,7 +304,7 @@ public class Dao {
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"There is some problem in Trial Version","Activation",JOptionPane.PLAIN_MESSAGE);
-            logger.error("ERROR[DAO-GE]",e);
+            logger.error("ERROR[DAO-GE-01]",e);
         }
         finally {
             try {
@@ -317,7 +312,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-GE-02]",ex);
             }
         }
         return expire;
@@ -357,7 +352,7 @@ public class Dao {
         
         
         } catch(Exception e) {
-            logger.error("Error Code[DAO-AV-1]There is some problem in adding voucher denominations",e);
+            logger.error("Error Code[DAO-AV-01] Problem in adding voucher denominations",e);
             JOptionPane.showMessageDialog(null,"There is some problem in adding voucher denominations","Add Voucher",JOptionPane.PLAIN_MESSAGE);
         }
         finally {
@@ -366,7 +361,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-AV-02]",ex);
             }
         }
         
@@ -390,7 +385,7 @@ public class Dao {
         }
          
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-VL-01]");
         }
         finally {
             try {
@@ -398,7 +393,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-VL-02]",ex);
             }
         }
         return voucherList;
@@ -420,6 +415,7 @@ public class Dao {
                 if(primary_stock>0){
                     JOptionPane.showMessageDialog(null,"Can't delete, voucher "+voucherList.get(i)+" has some primary stock","Remove Voucher",JOptionPane.PLAIN_MESSAGE);
                     removeFlag=false;
+                    logger.error("Can't delete voucher "+voucherList.get(i)+" has some primary stock");
                 }
                 else {
                     DatabaseMetaData meta = con.getMetaData();
@@ -439,6 +435,7 @@ public class Dao {
                        if(headerList.contains(voucherList.get(i)) && rs1.getInt(voucherList.get(i))>0){
                         JOptionPane.showMessageDialog(null,"Can't delete, voucher "+voucherList.get(i)+" is assigned to someone","Remove Voucher",JOptionPane.PLAIN_MESSAGE);                       
                         removeFlag=false;
+                        logger.error("Can't delete, voucher "+voucherList.get(i)+" is assigned to someone");
                         break;
                     }
                 } 
@@ -455,7 +452,7 @@ public class Dao {
             
     
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-RV-01]",e);
         }
         finally {
             try {
@@ -463,7 +460,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-RV-02]",ex);
             }
         }
         
@@ -495,6 +492,7 @@ public class Dao {
             if(alreadyAdded.length()>0){
                 alreadyAdded.deleteCharAt(alreadyAdded.length()-1);
                 JOptionPane.showMessageDialog(null,"FOS "+alreadyAdded+" Already Added!!!","Add FOS",JOptionPane.PLAIN_MESSAGE);
+                logger.error("FOS "+alreadyAdded+" Already Added!!!");
             }
             if(successfullyAdded.length()>0){
                 successfullyAdded.deleteCharAt(successfullyAdded.length()-1);
@@ -502,7 +500,7 @@ public class Dao {
             }
         
             } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-AF-01]",e);
         }
         finally {
             try {
@@ -510,7 +508,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-AF-02]",ex);
             }
         }
         
@@ -535,7 +533,7 @@ public class Dao {
         }
          
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-FL-01]",e);
         }
         finally {
             try {
@@ -543,7 +541,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-FL-02]",ex);
             }
         }
         return fosList;
@@ -569,6 +567,7 @@ public class Dao {
                         for(int j=1;j<headerList.size();j++){
                             if(rs.getInt(headerList.get(j))>0){
                                 JOptionPane.showMessageDialog(null,"Can't remove, FOS "+fosList.get(i)+" has some stock assigned","Remove FOS",JOptionPane.PLAIN_MESSAGE);
+                                logger.error("Can't remove, FOS "+fosList.get(i)+" has some stock assigned");
                                 removeFlag=false;
                                 break;
                             }
@@ -585,7 +584,7 @@ public class Dao {
             
     
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-RF-01]",e);
         }
         finally {
             try {
@@ -593,7 +592,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-RF-02]",ex);
             }
         }
         
@@ -671,7 +670,7 @@ public class Dao {
         JOptionPane.showMessageDialog(null,"Stock Successfully Added!!!","Primary Stock",JOptionPane.PLAIN_MESSAGE);
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-APS-01]",e);
         }
         finally {
             try {
@@ -679,7 +678,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-APS-02]",ex);
             }
         }
         
@@ -699,13 +698,14 @@ public class Dao {
          int updatedQuantity=n-quantity;
          if(updatedQuantity<0){
               JOptionPane.showMessageDialog(null,"Primary Stock cannot be less than zero","Primary Stock",JOptionPane.PLAIN_MESSAGE);
+              logger.error("Primary Stock cannot be less than zero");
          return;
          }
         stmt.execute("update primary_stock set Quantity="+updatedQuantity+" where Voucher='"+voucher+"'");
         JOptionPane.showMessageDialog(null,"Stock Successfully Updated!!!","Primary Stock",JOptionPane.PLAIN_MESSAGE);
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-RPS-01]",e);
         }
         finally {
             try {
@@ -713,7 +713,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-RPS-02]",ex);
             }
         }
         
@@ -749,7 +749,7 @@ public class Dao {
         }
          
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-PSL-01]",e);
         }
         finally {
             try {
@@ -757,7 +757,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-PSL-02]",ex);
             }
         }
         return primaryStockList;
@@ -902,7 +902,7 @@ public class Dao {
                JOptionPane.showMessageDialog(null,"Stock successfully assigned","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
                
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-AS-01]",e);
         }
         finally {
             try {
@@ -910,7 +910,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-AS-02]",ex);
             }
         }
         
@@ -1059,7 +1059,7 @@ public class Dao {
           }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-SI-01]",e);
         }
         finally {
             try {
@@ -1067,7 +1067,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-SI-02]",ex);
             }
         }
      return rowList;   
@@ -1176,7 +1176,7 @@ public class Dao {
                JOptionPane.showMessageDialog(null,"Stock successfully returned","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
                
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-RS-01]",e);
         }
         finally {
             try {
@@ -1184,7 +1184,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-RS-02]",ex);
             }
         }
         
@@ -1340,7 +1340,7 @@ public class Dao {
                JOptionPane.showMessageDialog(null,"Saved successfully","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
                
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-DH-01]",e);
         }
         finally {
             try {
@@ -1348,7 +1348,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-DH-02]",ex);
             }
         }
         
@@ -1402,7 +1402,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-PSR-01]",e);
         }
         finally {
             try {
@@ -1410,7 +1410,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-PSR-02]",ex);
             }
         }
         return primaryStockList;
@@ -1461,7 +1461,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RDF-01]",e);
         }
         finally {
             try {
@@ -1469,7 +1469,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RDF-02]",ex);
             }
         }
         return rowList;
@@ -1523,7 +1523,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-ROD-01]",e);
         }
         finally {
             try {
@@ -1531,7 +1531,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-ROD-02]",ex);
             }
         }
         return rowList;
@@ -1591,7 +1591,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RODC-01]",e);
         }
         finally {
             try {
@@ -1599,7 +1599,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RODC-02]",ex);
             }
         }
         return rowList;
@@ -1653,7 +1653,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RDFC-01]",e);
         }
         finally {
             try {
@@ -1661,7 +1661,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RDFC-02]",ex);
             }
         }
         return rowList;
@@ -1698,7 +1698,16 @@ public class Dao {
             rv = true;
         }
         catch(Exception e){
-            e.printStackTrace();
+            logger.error("ERROR[DAO-AE-01]",e);
+        }
+        finally {
+            try {
+                if(con!=null) {
+                    con.close();
+                }                
+            } catch (Exception ex) {
+                logger.error("ERROR[DAO-AE-02]",ex);
+            }
         }
         return rv;
     
@@ -1746,7 +1755,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RDFE-01]",e);
         }
         finally {
             try {
@@ -1754,7 +1763,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RDFE-02]",ex);
             }
         }
         return rowList;
@@ -1805,7 +1814,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RODE-01]",e);
         }
         finally {
             try {
@@ -1813,7 +1822,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RODE-01]",ex);
             }
         }
         return rowList;
@@ -1873,7 +1882,7 @@ public class Dao {
             
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RODP-01]",e);
         }
         finally {
             try {
@@ -1881,7 +1890,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RODP-02]",ex);
             }
         }
         return rowList;
@@ -1949,7 +1958,7 @@ public class Dao {
             }
         
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("ERROR[DAO-REP-RDFP-01]",e);
         }
         finally {
             try {
@@ -1957,7 +1966,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("ERROR[DAO-REP-RDFP-02]",ex);
             }
         }
         return rowList;
@@ -1973,7 +1982,7 @@ public class Dao {
             }
         }
         catch(Exception e){
-            logger.error("Error Code[DAO-CLEAN]",e);       
+            logger.error("Error Code[DAO-CLEAN-01]",e);       
         }
         finally {
             try {
@@ -1981,7 +1990,7 @@ public class Dao {
                     con.close();
                 }                
             } catch (Exception ex) {
-                Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("Error Code[DAO-CLEAN-02]",ex); 
             }
         }
         

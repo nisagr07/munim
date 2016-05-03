@@ -7,17 +7,11 @@ package stock;
 
 import bean.PrimaryStockBean;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,9 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
-import static main.Home.logger;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.table.NumberEditorExt;
 
 /**
@@ -46,7 +38,7 @@ public class AssignStock extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[AS-ICON]",exc);
         }
     }
     public void stockAssign(ArrayList<String> fosList, final ArrayList<PrimaryStockBean> psbList){
@@ -113,7 +105,7 @@ public class AssignStock extends javax.swing.JFrame {
                 super.setValueAt(totalPrimaryAmount, jTable1.getRowCount()-1, jTable1.getColumnCount()-1);
              }
             } catch(Exception e){
-                e.printStackTrace();
+                logger.error("ERROR[AS-01]",e);
                 JOptionPane.showMessageDialog(null,"Invalid Entry","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
             }
              

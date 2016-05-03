@@ -31,7 +31,7 @@ public class ViewPrimaryStock extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR[VPS-ICON]",exc);
         }
     }
     public ViewPrimaryStock(ArrayList<PrimaryStockBean> primaryStockList) {

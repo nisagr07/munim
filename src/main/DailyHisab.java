@@ -5,28 +5,21 @@
  */
 package main;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.EventObject;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.table.NumberEditorExt;
-import org.jdesktop.swingx.table.TableColumnExt;
 
 /**
  *
@@ -44,7 +37,7 @@ public class DailyHisab extends javax.swing.JFrame {
             this.setIconImage( new javax.swing.ImageIcon(getClass().getResource("m_logo.png")).getImage());
         }
         catch (Exception exc) {
-            logger.error("ERROR in setting icon",exc);
+            logger.error("ERROR [DH-ICON]",exc);
         }
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
        
@@ -178,8 +171,8 @@ public class DailyHisab extends javax.swing.JFrame {
                 }
              
             } catch(Exception e){
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null,"Invalid Entry","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+                logger.error("ERROR [DH-Invalid Entry]",e);
+                JOptionPane.showMessageDialog(null,"Invalid Entry","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
             }
              
              
@@ -554,7 +547,8 @@ public class DailyHisab extends javax.swing.JFrame {
             Double.parseDouble(jTextField1.getText());
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Please enter proper margin","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+            logger.error("Error [DH-Please enter proper margin]",e);
+            JOptionPane.showMessageDialog(null,"Please enter proper margin","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
             jTextField1.requestFocusInWindow();
         }
     }//GEN-LAST:event_jTextField1FocusLost
