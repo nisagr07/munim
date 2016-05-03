@@ -61,6 +61,7 @@ public class AddExpense extends javax.swing.JFrame {
                 }
                 if(sumValue < 0){
                     JOptionPane.showMessageDialog(null,"Negative values not allowed","Add Expense",JOptionPane.PLAIN_MESSAGE);
+                    logger.error("Negative values not allowed");
                     return;
                 }
                 for(int i=1;i<=getColumnCount()-2;i++){
@@ -260,6 +261,7 @@ public class AddExpense extends javax.swing.JFrame {
         }
         else {
             JOptionPane.showMessageDialog(null,"Problem in saving expenses",this.getTitle(),JOptionPane.PLAIN_MESSAGE);
+            logger.error("Problem in saving expenses");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

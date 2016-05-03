@@ -255,7 +255,6 @@ public class ReturnStock extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Return Stock");
         setLocationByPlatform(true);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -320,22 +319,22 @@ public class ReturnStock extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1045, Short.MAX_VALUE)
                         .addGap(169, 169, 169))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(113, 113, 113)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(405, 405, 405))
+                .addGap(468, 468, 468))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,13 +345,13 @@ public class ReturnStock extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                     .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(105, 105, 105))
+                .addContainerGap())
         );
 
         pack();

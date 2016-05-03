@@ -90,6 +90,7 @@ public class Login extends javax.swing.JFrame {
                     }
                     else if (returnMsg[0].equalsIgnoreCase("not_registered")){
                         JOptionPane.showMessageDialog(null,"You are not registered","Login Error",JOptionPane.PLAIN_MESSAGE);
+                        logger.error("You are not registered");
                     }
                 }  
             }

@@ -214,7 +214,7 @@ public class AssignStock extends javax.swing.JFrame {
         Dao dao=new Dao();
         ArrayList<String> rowList=dao.stockInhand();
         if(rowList==null){
-            jPanel2.setVisible(false);
+            jScrollPane2.setVisible(false);
             jLabel3.setVisible(false);
         }
         else{

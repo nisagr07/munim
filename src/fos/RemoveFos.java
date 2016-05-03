@@ -75,9 +75,9 @@ public class RemoveFos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Remove FOS");
@@ -100,15 +100,20 @@ public class RemoveFos extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 181;
-        gridBagConstraints.ipady = 154;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 136;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(11, 41, 0, 11);
+        gridBagConstraints.insets = new java.awt.Insets(24, 42, 41, 57);
         jPanel1.add(jScrollPane1, gridBagConstraints);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel1.setText("Remove FOS");
+        jLabel1.setToolTipText("Remove FOS");
 
         jButton1.setText("Remove");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,18 +121,6 @@ public class RemoveFos extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 65, 11, 0);
-        jPanel1.add(jButton1, gridBagConstraints);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel1.setText("Remove FOS");
-        jLabel1.setToolTipText("Remove FOS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,11 +131,16 @@ public class RemoveFos extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(178, 178, 178)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))))
+                        .addGap(122, 122, 122)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(158, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(239, 239, 239))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +148,13 @@ public class RemoveFos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel1)
-                        .addGap(16, 16, 16)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();

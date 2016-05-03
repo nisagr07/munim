@@ -106,7 +106,7 @@ public class DailyHisab extends javax.swing.JFrame {
            }
           
           //jTable1.setMinimumSize(new Dimension(maxWidth, maxHeight));
-          jScrollPane1.setMinimumSize(new Dimension(maxWidth-500, maxHeight-700));
+          jScrollPane1.setMinimumSize(new Dimension(maxWidth-400, maxHeight-300));
            jPanel3.add(jScrollPane1);
           
           this.revalidate();
@@ -246,7 +246,7 @@ public class DailyHisab extends javax.swing.JFrame {
                jPanel1.setSize(jPanel1.getWidth(), maxHeight);
            }
           // jTable2.setMinimumSize(new Dimension(maxWidth, maxHeight));
-           jScrollPane2.setMinimumSize(new Dimension(maxWidth-200, maxHeight-200));
+           jScrollPane2.setMinimumSize(new Dimension(maxWidth-400, maxHeight-300));
             jPanel1.add(jScrollPane2);
             this.revalidate();
              
@@ -281,7 +281,7 @@ public class DailyHisab extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Daily Hisab");
+        setTitle("Daily Calculation");
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -368,11 +368,11 @@ public class DailyHisab extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addGap(57, 57, 57))
