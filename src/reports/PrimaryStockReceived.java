@@ -243,13 +243,14 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
                  
                  model.addRow(parts);
              }
+             if(rowList.size()>2){
            String parts1[] = new String[totalVouchers.length];
            parts1[0] = "Total Vouchers";
            for(int j=1;j<=totalVouchers.length-1;j++){
                parts1[j] = String.valueOf(totalVouchers[j]);
            }
            model.addRow(parts1);
-          
+             }
             jTable1.setModel(model);
             jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTable1.setFillsViewportHeight(true);
