@@ -13,6 +13,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -39,7 +40,9 @@ public class Dao {
             if(!f.exists()){
                 DatabaseBuilder.create(Database.FileFormat.V2003, f);
             }
-            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+            //Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            //con = DriverManager.getConnection("jdbc:ucanaccess://c:/m/m.accdb");
+           Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
             con = DriverManager.getConnection("jdbc:odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=c:\\m\\m.mdb");
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"Database not configured properly","Database Error",JOptionPane.PLAIN_MESSAGE);

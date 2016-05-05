@@ -120,7 +120,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Dont have licence key?? You can use this software for 7 days as free trial:"/>
+        <Property name="text" type="java.lang.String" value="Dont have licence key?? You can use this software for 3 days as free trial:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">

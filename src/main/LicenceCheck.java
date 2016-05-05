@@ -64,14 +64,14 @@ public class LicenceCheck extends javax.swing.JFrame {
                 Date d1 = dateFormat.parse(startDate);
                 Date d2 = dateFormat.parse(currentDate);
                 long diff = (d2.getTime() - d1.getTime())/1000/60/60/24;
-                if(diff > 7 || diff < 0){
+                if(diff > 3 || diff < 0){
                     jLabel3.setVisible(false);
                     jButton2.setVisible(false);
                     jLabel4.setText("Your Trial Period Expired!!!");
                     Dao.setExpire(user);
                 }
                 else {
-                    long daysLeft = 7 - diff;
+                    long daysLeft = 3 - diff;
                     jLabel4.setText("Trial Period "+String.valueOf(daysLeft)+" Days Left");
                 }
             }
@@ -134,7 +134,7 @@ public class LicenceCheck extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Dont have licence key?? You can use this software for 7 days as free trial:");
+        jLabel3.setText("Dont have licence key?? You can use this software for 3 days as free trial:");
 
         jButton2.setText("Free Trial");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
