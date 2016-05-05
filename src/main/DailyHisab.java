@@ -77,7 +77,6 @@ public class DailyHisab extends javax.swing.JFrame {
             for(int i=0;i<jTable1.getColumnCount();i++){
                jTable1.getColumnModel().getColumn(i).setCellRenderer(dtcr);
                width = width + jTable1.getColumnModel().getColumn(i).getWidth();
-              // jTable1.getColumnModel().getColumn(i).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
            }
             int height = jTable1.getRowHeight()*(jTable1.getRowCount()+1);
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -120,29 +119,34 @@ public class DailyHisab extends javax.swing.JFrame {
              try{
                  
              long enteredValue=0;
-             if(value!=null){
-                 enteredValue=((Long)value);
+            if(value!=null){
+                try{
+                    enteredValue=Long.parseLong(String.valueOf(value));
+                }
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"Please enter proper value","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
              }
-            
              if(enteredValue < 0){
-                 JOptionPane.showMessageDialog(null,"Negative values are not allowed","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+                 JOptionPane.showMessageDialog(null,"Negative values are not allowed","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
                  return;
              }
              if(jTable2.getColumn("Cash").getModelIndex()!=col){
                  long openingStock=Long.parseLong((String)(jTable1.getModel().getValueAt(row, col)));
                 if(enteredValue>openingStock){
-                 JOptionPane.showMessageDialog(null,"Closing stock can not be greater than opening stock","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+                 JOptionPane.showMessageDialog(null,"Closing stock can not be greater than opening stock","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
                  return;
                 }
              }
                 super.setValueAt(value, row, col);
                 long totalAmount=0;
                 for(int i=1;i<=jTable2.getColumnCount()-5;i++){
-                    if((Long)jTable2.getModel().getValueAt(row, i)!=null){
+                    if(jTable2.getModel().getValueAt(row, i)!=null){
                         if(jTable2.getColumnName(i).equalsIgnoreCase("Virtual_Topup")){
-                            totalAmount = totalAmount + ((Long)jTable2.getModel().getValueAt(row, i)).longValue();
+                            totalAmount = totalAmount + Long.parseLong(String.valueOf(jTable2.getModel().getValueAt(row, i)));
                         } else {
-                            totalAmount = totalAmount + ((Long)jTable2.getModel().getValueAt(row, i)).longValue() * Long.parseLong(jTable2.getColumnName(i));
+                            totalAmount = totalAmount + Long.parseLong(String.valueOf(jTable2.getModel().getValueAt(row, i))) * Long.parseLong(jTable2.getColumnName(i));
                         }
                         
                     }
@@ -153,12 +157,12 @@ public class DailyHisab extends javax.swing.JFrame {
                 super.setValueAt(totalAmount, row, jTable2.getColumnCount()-4);
                 
                 long totalAmountOpening = Long.parseLong((String)jTable1.getModel().getValueAt(row, jTable1.getColumn("Total_Amount").getModelIndex()));
-                long totalAmountClosing = (Long)jTable2.getModel().getValueAt(row, jTable2.getColumn("Total_Amount").getModelIndex());
+                long totalAmountClosing = Long.parseLong(String.valueOf(jTable2.getModel().getValueAt(row, jTable2.getColumn("Total_Amount").getModelIndex())));
                 long totalSold = totalAmountOpening - totalAmountClosing;
                 super.setValueAt(totalSold, row, jTable2.getColumn("Total_Sold").getModelIndex());
                 long cash = 0;
-                if((Long)jTable2.getModel().getValueAt(row, jTable2.getColumn("Cash").getModelIndex())!=null){
-                     cash = (Long)jTable2.getModel().getValueAt(row, jTable2.getColumn("Cash").getModelIndex());
+                if(jTable2.getModel().getValueAt(row, jTable2.getColumn("Cash").getModelIndex())!=null){
+                     cash = Long.parseLong(String.valueOf(jTable2.getModel().getValueAt(row, jTable2.getColumn("Cash").getModelIndex())));
                 }
                 double margin=(100+Double.parseDouble(jTextField1.getText()))/100;
                 double difference=totalSold-(cash*margin);
@@ -216,7 +220,7 @@ public class DailyHisab extends javax.swing.JFrame {
             int width2=0;
             for(int i=0;i<jTable2.getColumnCount();i++){
                jTable2.getColumnModel().getColumn(i).setCellRenderer(dtcr);
-               jTable2.getColumnModel().getColumn(i).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
+               jTable2.getColumnModel().getColumn(i).setCellEditor(new MyCellEditor());
                width2 = width2 + jTable2.getColumnModel().getColumn(i).getWidth();
             }
             jTable2.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
@@ -491,7 +495,7 @@ public class DailyHisab extends javax.swing.JFrame {
                         sb1.append(jTable2.getModel().getValueAt(row,column1)+",");
                     }
                     else {
-                        sb1.append(Long.parseLong((String)jTable1.getModel().getValueAt(row,column1))-(Long)jTable2.getModel().getValueAt(row,column1)+",");
+                        sb1.append(Long.parseLong((String)jTable1.getModel().getValueAt(row,column1))-Long.parseLong(String.valueOf(jTable2.getModel().getValueAt(row,column1)))+",");
                     }
 
                 }
@@ -511,7 +515,7 @@ public class DailyHisab extends javax.swing.JFrame {
             d=jXDatePicker1.getDate();
         }
         else{
-             JOptionPane.showMessageDialog(null,"Please enter valid date","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+             JOptionPane.showMessageDialog(null,"Please enter valid date","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
              return;
         }
 

@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import main.MyCellEditor;
 import org.apache.log4j.Logger;
 
 /**
@@ -47,6 +48,7 @@ public class AddFos extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(0).setCellRenderer(dtcr);
         jTable1.getColumnModel().getColumn(0).setMinWidth(110);
          jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+         jTable1.getColumnModel().getColumn(0).setCellEditor(new MyCellEditor());
       
     }
 

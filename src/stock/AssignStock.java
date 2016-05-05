@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import main.MyCellEditor;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.table.NumberEditorExt;
 
@@ -46,64 +47,70 @@ public class AssignStock extends javax.swing.JFrame {
          DefaultTableModel model = new DefaultTableModel(){
          @Override
          public void setValueAt(Object value, int row, int col) {
-             try{
-                 if(value!=null && value.equals("Available Primary Stock")){
-                     super.setValueAt(value, row, col);
-                     return;
-                 }
-              long sumValue=0;   
-             if(value!=null){
-                 sumValue=((Long)value).longValue();
-             }
-             if(sumValue < 0){
-                 JOptionPane.showMessageDialog(null,"Negative Values cannot be assigned","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
-                 return;
-             }
-             for(int i=0;i<getRowCount()-1;i++){
-                 if(i==row){
-                     continue;
-                 }
-                 if((Long)jTable1.getModel().getValueAt(i, col)!=null){
-                     sumValue = sumValue + ((Long)jTable1.getModel().getValueAt(i, col)).longValue();
-                 }
-                 else {
-                     sumValue=sumValue + 0;
-                 }
-                 
-             }
-             long primaryValue=(long)(psbList.get(col-1).getQuantity());
-             if(sumValue>primaryValue){
-                 JOptionPane.showMessageDialog(null,"Cannot assign...Insufficient Primary Stock","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
-             }
-             else {
-                long updatedPrimaryValue = primaryValue- sumValue;
-                super.setValueAt((Object)(updatedPrimaryValue),jTable1.getRowCount()-1, col);
-                super.setValueAt(value, row, col);
-                long totalAmount=0;
-                long totalPrimaryAmount=0;
-                for(int i=1;i<=jTable1.getColumnCount()-2;i++){
-                    if((Long)jTable1.getModel().getValueAt(row, i)!=null){
-                        if(jTable1.getColumnName(i).equalsIgnoreCase("Virtual_Topup")){
-                            totalAmount = totalAmount + ((Long)jTable1.getModel().getValueAt(row, i)).longValue();
-                        } else {
-                            totalAmount = totalAmount + ((Long)jTable1.getModel().getValueAt(row, i)).longValue() * Long.parseLong(jTable1.getColumnName(i));
-                        }
-                        
+            try{
+                if(value!=null && value.equals("Available Primary Stock")){
+                    super.setValueAt(value, row, col);
+                    return;
+                }
+                long sumValue=0;   
+                if(value!=null){
+                    try{
+                        sumValue=Long.parseLong(String.valueOf(value));
+                    }
+                    catch(Exception e){
+                        JOptionPane.showMessageDialog(null,"Please enter proper value","Assign Stock",JOptionPane.PLAIN_MESSAGE);
+                        return;
+                    }
+                }
+                if(sumValue < 0){
+                    JOptionPane.showMessageDialog(null,"Negative Values cannot be assigned","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+                for(int i=0;i<getRowCount()-1;i++){
+                    if(i==row){
+                        continue;
+                    }
+                    if(jTable1.getModel().getValueAt(i, col)!=null){
+                        sumValue = sumValue + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(i, col)));
                     }
                     else {
-                        totalAmount = totalAmount + 0;
+                        sumValue=sumValue + 0;
                     }
+                 
+                }
+                long primaryValue=(long)(psbList.get(col-1).getQuantity());
+                if(sumValue>primaryValue){
+                    JOptionPane.showMessageDialog(null,"Cannot assign...Insufficient Primary Stock","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
+                }
+                else {
+                    long updatedPrimaryValue = primaryValue- sumValue;
+                    super.setValueAt((Object)(updatedPrimaryValue),jTable1.getRowCount()-1, col);
+                    super.setValueAt(value, row, col);
+                    long totalAmount=0;
+                    long totalPrimaryAmount=0;
+                    for(int i=1;i<=jTable1.getColumnCount()-2;i++){
+                        if(jTable1.getModel().getValueAt(row, i)!=null){
+                            if(jTable1.getColumnName(i).equalsIgnoreCase("Virtual_Topup")){
+                                totalAmount = totalAmount + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(row, i)));
+                            } else {
+                                totalAmount = totalAmount + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(row, i))) * Long.parseLong(jTable1.getColumnName(i));
+                            }
+                        
+                        }
+                        else {
+                            totalAmount = totalAmount + 0;
+                        }
                     
                     //Calculating total amount of primary stock after assignment
-                     if(jTable1.getColumnName(i).equalsIgnoreCase("Virtual_Topup")){
-                            totalPrimaryAmount = totalPrimaryAmount + ((Long)jTable1.getModel().getValueAt(jTable1.getRowCount()-1, i)).longValue();
-                     } else {
-                            totalPrimaryAmount = totalPrimaryAmount + ((Long)jTable1.getModel().getValueAt(jTable1.getRowCount()-1, i)).longValue() * Long.parseLong(jTable1.getColumnName(i));
-                     } 
+                        if(jTable1.getColumnName(i).equalsIgnoreCase("Virtual_Topup")){
+                            totalPrimaryAmount = totalPrimaryAmount + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(jTable1.getRowCount()-1, i)));
+                        } else {
+                            totalPrimaryAmount = totalPrimaryAmount + Long.parseLong(String.valueOf(jTable1.getModel().getValueAt(jTable1.getRowCount()-1, i))) * Long.parseLong(jTable1.getColumnName(i));
+                        } 
+                    }
+                    super.setValueAt(totalAmount, row, jTable1.getColumnCount()-1);
+                    super.setValueAt(totalPrimaryAmount, jTable1.getRowCount()-1, jTable1.getColumnCount()-1);
                 }
-                super.setValueAt(totalAmount, row, jTable1.getColumnCount()-1);
-                super.setValueAt(totalPrimaryAmount, jTable1.getRowCount()-1, jTable1.getColumnCount()-1);
-             }
             } catch(Exception e){
                 logger.error("ERROR[AS-01]",e);
                 JOptionPane.showMessageDialog(null,"Invalid Entry","Stock Assignment",JOptionPane.PLAIN_MESSAGE);
@@ -142,19 +149,19 @@ public class AssignStock extends javax.swing.JFrame {
              model.addRow(row);
          }
          
-          for(int i=1;i<=psbList.size();i++){
-             primaryRow[i]=(long)(psbList.get(i-1).getQuantity());
-         }   
-          for(int i=1;i<=column.size()-2;i++){
-              if(psbList.get(i-1).getVoucher().equalsIgnoreCase("Virtual_Topup")){
-                            totalPrimaryValue = totalPrimaryValue + (long)(psbList.get(i-1).getQuantity());
-                     } else {
+        for(int i=1;i<=psbList.size();i++){
+            primaryRow[i]=(long)(psbList.get(i-1).getQuantity());
+        }   
+        for(int i=1;i<=column.size()-2;i++){
+            if(psbList.get(i-1).getVoucher().equalsIgnoreCase("Virtual_Topup")){
+                totalPrimaryValue = totalPrimaryValue + (long)(psbList.get(i-1).getQuantity());
+            } else {
                             
-                            totalPrimaryValue = totalPrimaryValue + (long)(psbList.get(i-1).getQuantity()) * Long.parseLong(psbList.get(i-1).getVoucher());
-                     } 
-                }
-          primaryRow[column.size()-1]=totalPrimaryValue;
-         model.addRow(primaryRow);
+                totalPrimaryValue = totalPrimaryValue + (long)(psbList.get(i-1).getQuantity()) * Long.parseLong(psbList.get(i-1).getVoucher());
+            } 
+        }
+        primaryRow[column.size()-1]=totalPrimaryValue;
+        model.addRow(primaryRow);
          
           
             jTable1.setModel(model);
@@ -171,7 +178,8 @@ public class AssignStock extends javax.swing.JFrame {
             int width=0;
             for(int i=0;i<jTable1.getColumnCount();i++){
                jTable1.getColumnModel().getColumn(i).setCellRenderer(dtcr);
-               jTable1.getColumnModel().getColumn(i).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
+               jTable1.getColumnModel().getColumn(i).setCellEditor(new MyCellEditor());
+               //jTable1.getColumnModel().getColumn(i).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
                width = width + jTable1.getColumnModel().getColumn(i).getWidth();
             }
             jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);

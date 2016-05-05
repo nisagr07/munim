@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import main.MyCellEditor;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.table.NumberEditorExt;
 
@@ -56,6 +57,24 @@ public class AddPrimaryStock extends javax.swing.JFrame {
                     return super.isCellEditable(row, column);
                 }
             }
+
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                try{
+                    if(aValue!=null && String.valueOf(aValue).length()>0){
+                        if(Integer.parseInt(String.valueOf(aValue))<0){
+                            JOptionPane.showMessageDialog(null,"Please enter proper value","Add Primary Stock",JOptionPane.PLAIN_MESSAGE);
+                            return;
+                        }
+                    }
+                     super.setValueAt(aValue, row, column);
+                }
+                
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"Please enter proper value","Add Primary Stock",JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+            
         };
         model.setColumnIdentifiers(new String[]{"Vouchers","Quantity"});
         String[] row = new String[2];
@@ -79,8 +98,9 @@ public class AddPrimaryStock extends javax.swing.JFrame {
         for(int i=0;i<jTable1.getColumnCount();i++){
             width = width + jTable1.getColumnModel().getColumn(i).getWidth(); 
             jTable1.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+            jTable1.getColumnModel().getColumn(i).setCellEditor(new MyCellEditor());
         }
-        jTable1.getColumnModel().getColumn(1).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
+        //jTable1.getColumnModel().getColumn(1).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
         jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         jXDatePicker1.setDate(new Date());
@@ -94,11 +114,6 @@ public class AddPrimaryStock extends javax.swing.JFrame {
         }
         
         jPanel1.add(jScrollPane1);
-        DefaultCellEditor editor = (DefaultCellEditor)jTable1.getColumnModel().getColumn(1).getCellEditor();
-        String valorCell = (String)editor.getCellEditorValue();
-        JTextField textField = (JTextField)editor.getTableCellEditorComponent(jTable1, valorCell, true, 0, 1);
-        textField.selectAll();
-        jTable1.setDefaultEditor(jTable1.getColumnClass(1), editor);
     }
 
     /**

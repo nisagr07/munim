@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import main.MyCellEditor;
 import org.apache.log4j.Logger;
 
 /**
@@ -57,7 +58,14 @@ public class AddExpense extends javax.swing.JFrame {
              public void setValueAt(Object value, int row, int col) {
                 long sumValue=0;   
                 if(value!=null){
-                    sumValue=Long.parseLong(String.valueOf(value));
+                    try{
+                        sumValue=Long.parseLong(String.valueOf(value));
+                    }
+                    catch(Exception e){
+                        JOptionPane.showMessageDialog(null,"Please enter proper value","Add Expense",JOptionPane.PLAIN_MESSAGE);
+                        return;
+                    }
+                    
                 }
                 if(sumValue < 0){
                     JOptionPane.showMessageDialog(null,"Negative values not allowed","Add Expense",JOptionPane.PLAIN_MESSAGE);
@@ -101,6 +109,7 @@ public class AddExpense extends javax.swing.JFrame {
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         for(int i=0;i<jTable1.getColumnCount();i++){
                jTable1.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+               jTable1.getColumnModel().getColumn(i).setCellEditor(new MyCellEditor());
         }
         int height = jTable1.getRowHeight()*(jTable1.getRowCount()+1);
         if(height>180){
@@ -136,7 +145,7 @@ public class AddExpense extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/small_logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Add Expense");
 
         jPanel1.setLayout(new java.awt.GridBagLayout());

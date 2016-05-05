@@ -385,7 +385,7 @@ public class Dao {
         }
          
         } catch(Exception e) {
-            logger.error("ERROR[DAO-VL-01]");
+            logger.error("ERROR[DAO-VL-01]",e);
         }
         finally {
             try {
@@ -1337,7 +1337,7 @@ public class Dao {
                }
                
                
-               JOptionPane.showMessageDialog(null,"Saved successfully","Daily Hisab",JOptionPane.PLAIN_MESSAGE);
+               JOptionPane.showMessageDialog(null,"Saved successfully","Daily Calculation",JOptionPane.PLAIN_MESSAGE);
                
         } catch(Exception e) {
             logger.error("ERROR[DAO-DH-01]",e);

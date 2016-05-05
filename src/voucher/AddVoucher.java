@@ -5,20 +5,17 @@
  */
 package voucher;
 
+
 import java.awt.Dimension;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import main.Dao;
+import main.MyCellEditor;
 import org.apache.log4j.Logger;
-import org.jdesktop.swingx.table.NumberEditorExt;
 
 /**
  *
@@ -39,7 +36,26 @@ public class AddVoucher extends javax.swing.JFrame {
         catch (Exception exc) {
             logger.error("ERROR[AV-ICON]",exc);
         }
-        model = new DefaultTableModel();
+        
+        model = new DefaultTableModel(){
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                try{
+                    if(aValue!=null && String.valueOf(aValue).length()>0){
+                        if(Integer.parseInt(String.valueOf(aValue))<0){
+                            JOptionPane.showMessageDialog(null,"Please enter proper value","Add Voucher",JOptionPane.PLAIN_MESSAGE);
+                            return;
+                        }
+                    }
+                     super.setValueAt(aValue, row, column);
+                }
+                
+                catch(Exception e){
+                    JOptionPane.showMessageDialog(null,"Please enter proper value","Add Voucher",JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+            
+        };
         model.addColumn("Vouchers");
         model.addRow(s);
         jTable1.setModel(model);
@@ -47,14 +63,14 @@ public class AddVoucher extends javax.swing.JFrame {
         jTable1.setFillsViewportHeight(true);
         jTable1.setRowHeight(22);
         jTable1.setShowGrid(true);
+        jTable1.getColumnModel().getColumn(0).setCellEditor(new MyCellEditor());
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(dtcr);
         jTable1.getColumnModel().getColumn(0).setMinWidth(101);
-        jTable1.getColumnModel().getColumn(0).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
+      //  jTable1.getColumnModel().getColumn(0).setCellEditor(new NumberEditorExt(NumberFormat.getInstance(),true));
         jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
-        //adjustJscrollPane();
        
       
     }
@@ -234,19 +250,4 @@ public class AddVoucher extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-}
-
-
- class SelectAllCellEditor extends DefaultCellEditor
-{
-    public SelectAllCellEditor(final JTextField textField ) {
-        super( textField );
-        textField.addFocusListener( new FocusAdapter()
-        {
-            public void focusGained( final FocusEvent e )
-            {
-                textField.selectAll();
-            }
-        } );
-    }
 }
