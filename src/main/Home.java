@@ -79,7 +79,7 @@ public class Home extends javax.swing.JFrame {
                 + "<li>I will track all the Primary Stocks you are purchasing.</li>"
                 + "<li>I will monitor all your expenses.</li>"
                 + "<li>I will look into the stocks which are assigned to your FOS.</li>"
-                + "<li>I will do daily calculations for you.</li>"
+                + "<li>I will do daily calculations of opening and closing stock of every FOS.</li>"
                 + "<li>I will give you complete report of stock purchased, stock sold, total expenses and overall profit in your business.</li>"
                 + "</html>");
     }

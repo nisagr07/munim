@@ -94,7 +94,7 @@ public class Dao {
             ResultSet res = meta.getTables(null, null, "user", null); 
             if(res.next()){
                 stmt.execute("insert into user (Username,Password) values ('"+username+"','"+password+"')"); 
-                JOptionPane.showMessageDialog(null,"Registeration Successful","Registeration",JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Registration Successful","Registration",JOptionPane.PLAIN_MESSAGE);
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"Not Registered","Register Error",JOptionPane.PLAIN_MESSAGE);
