@@ -166,7 +166,7 @@ public class DailyHisab extends javax.swing.JFrame {
                 }
                 double margin=(100+Double.parseDouble(jTextField1.getText()))/100;
                 double difference=totalSold-(cash*margin);
-                super.setValueAt(difference, row, jTable2.getColumn("Difference").getModelIndex());
+                super.setValueAt(formatDifference(difference), row, jTable2.getColumn("Difference").getModelIndex());
                 Long l=Long.valueOf(0);
                 for(int i=1;i<jTable2.getColumnCount();i++){
                     if(jTable2.getModel().getValueAt(row, i)==null){
@@ -598,6 +598,15 @@ public class DailyHisab extends javax.swing.JFrame {
                 new DailyHisab().setVisible(true);
             }
         });
+    }
+    private double formatDifference(double number){
+        int integerPart = (int) number;
+        double fractionalPart = number - integerPart;
+        fractionalPart *= 100;  //It is for upto two decimal values after point.
+                                //You can increase the zeros to fulfill your needs.
+        int fractPart = (int) fractionalPart;
+        fractionalPart = (double) (integerPart) + (double) (fractPart)/100;
+        return fractionalPart;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

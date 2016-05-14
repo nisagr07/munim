@@ -313,6 +313,7 @@ public class TotalExpense extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(1).setMinWidth(100);
         jTable1.getColumnModel().getColumn(2).setMinWidth(100);
         jTable1.getColumnModel().getColumn(3).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(4).setMinWidth(100);
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         ((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);

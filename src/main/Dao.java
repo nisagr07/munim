@@ -1956,8 +1956,9 @@ public class Dao {
                     int te = (int)totalExpense.get(date);
                     int ts = 0;
                     sb.append(date).append(",").append(ts).append(",").append(te).append(",0");
+                    rowList.add(sb.toString());
                 }
-                rowList.add(sb.toString());
+                
             }
         
         } catch(Exception e) {
