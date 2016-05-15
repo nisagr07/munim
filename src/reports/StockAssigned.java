@@ -246,8 +246,8 @@ private static final Logger logger=Logger.getLogger(StockAssigned.class);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
+        try{
+           String comboValue = String.valueOf(jComboBox2.getSelectedItem());
         Dao d = new Dao();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         DefaultTableModel model = new DefaultTableModel(){
@@ -349,6 +349,10 @@ private static final Logger logger=Logger.getLogger(StockAssigned.class);
         jTable1.setVisible(true);
         jScrollPane1.setVisible(true);
         this.revalidate();
+       }
+       catch(Exception e){
+           logger.error("SA-01",e);
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed

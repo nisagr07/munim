@@ -104,7 +104,7 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(475, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,14 +163,17 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(151, 151, 151))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1368, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1368, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(97, 97, 97)))))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,8 +186,8 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,8 +207,8 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        Dao d = new Dao();
+        try{
+           Dao d = new Dao();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         if(jXDatePicker1.getDate()==null || jXDatePicker2.getDate() == null){
             JOptionPane.showMessageDialog(null,"Please enter valid date ","Primary Stock Received",JOptionPane.PLAIN_MESSAGE);
@@ -287,6 +290,10 @@ public class PrimaryStockReceived extends javax.swing.JFrame {
            jTable1.setVisible(true);
         jScrollPane1.setVisible(true);
         this.revalidate();
+       }
+       catch(Exception e){
+           logger.error("PSR-01",e);
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

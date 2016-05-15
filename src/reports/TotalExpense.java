@@ -192,7 +192,8 @@ public class TotalExpense extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(96, 96, 96))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +248,8 @@ public class TotalExpense extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
+        try{
+           String comboValue = String.valueOf(jComboBox2.getSelectedItem());
         Dao d = new Dao();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         DefaultTableModel model = new DefaultTableModel(){
@@ -352,6 +354,10 @@ public class TotalExpense extends javax.swing.JFrame {
         jTable1.setVisible(true);
         jScrollPane1.setVisible(true);
         this.revalidate();
+       }
+       catch(Exception e){
+           logger.error("TE-01",e);
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -278,10 +278,11 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String comboValue = String.valueOf(jComboBox2.getSelectedItem());
-        Dao d = new Dao();
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        DefaultTableModel model = new DefaultTableModel(){
+        try{
+            String comboValue = String.valueOf(jComboBox2.getSelectedItem());
+            Dao d = new Dao();
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            DefaultTableModel model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; //To change body of generated methods, choose Tools | Templates.
@@ -401,6 +402,10 @@ private static final Logger logger=Logger.getLogger(NetProfit.class);
         jTable1.setVisible(true);
         jScrollPane1.setVisible(true);
         this.revalidate();
+        }
+        catch(Exception e){
+            logger.error("NP-01",e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private double formatProfit(double number){
